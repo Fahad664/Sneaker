@@ -7,31 +7,33 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import android.widget.Toast
 import com.irozon.sneaker.Sneaker
-import com.irozon.sneaker.interfaces.OnSneakerDismissListener
-import kotlinx.android.synthetic.main.activity_main.*
+import com.irozon.sneakersample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         with(supportFragmentManager.beginTransaction()) {
             this.add(R.id.fragment, MainFragment())
             this.commit()
         }
 
-        btShowError.setOnClickListener {
+        binding.btShowError.setOnClickListener {
             Sneaker.with(this)
-                    .setTitle("Error!!")
-                    .setMessage("This is the error message")
-                    .setTypeface(Typeface.createFromAsset(this.assets, "font/Slabo27px-Regular.ttf"))
-                    .sneakError()
+                .setTitle("Error!!")
+                .setMessage("This is the error message")
+                .setTypeface(Typeface.createFromAsset(this.assets, "font/Slabo27px-Regular.ttf"))
+                .sneakError()
         }
-        btShowSuccess.setOnClickListener {
-            val sneaker = Sneaker.with(viewGroup)
-            val view = LayoutInflater.from(this).inflate(R.layout.custom_view, sneaker.getView(), false)
-            view.findViewById<TextView>(R.id.tvInstall).setOnClickListener{
+        binding.btShowSuccess.setOnClickListener {
+            val sneaker = Sneaker.with(binding.root)
+            val view =
+                LayoutInflater.from(this).inflate(R.layout.custom_view, sneaker.getView(), false)
+            view.findViewById<TextView>(R.id.tvInstall).setOnClickListener {
                 Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
             }
             sneaker.sneakCustom(view)

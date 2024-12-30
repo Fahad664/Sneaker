@@ -6,26 +6,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.irozon.sneaker.Sneaker
-import kotlinx.android.synthetic.main.fragment_main.*
+import com.irozon.sneakersample.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_main, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btShowWarning.setOnClickListener {
+        binding.btShowWarning.setOnClickListener {
             Sneaker.with(this)
-                    .setTitle("Warning!!")
-                    .setCornerRadius(5, 5)
-                    .setMessage("This is the warning message")
-                    .sneakWarning()
+                .setTitle("Warning!!")
+                .setCornerRadius(5, 5)
+                .setMessage("This is the warning message")
+                .sneakWarning()
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }
