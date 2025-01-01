@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-parcelize'
-//apply plugin: 'kotlin-android-extensions'
 
 android {
     namespace 'com.irozon.sneakersample'
@@ -44,8 +43,6 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-//    implementation 'com.irozon.sneaker:sneaker:2.0.0'
     implementation project(':sneaker')
 }
 repositories {
